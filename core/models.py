@@ -13,6 +13,9 @@ class User(AbstractBaseUser,PermissionsMixin):
     objects=UserManager()
     USERNAME_FIELD= 'email'
 
+    def __str__(self):
+        return f"{self.id}:{self.name}"
+
 
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
