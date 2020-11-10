@@ -1,13 +1,16 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from .forms import *
+
 from django.contrib.auth import authenticate,login as dj_login,logout
 from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
+from . import signals
 # Create your views here.
 
 def index(request):
+    #signals.notification.send(sender=None,request=request,user=request.user.name)
     return render(request,'index.html',{'user':request.user})
 
 #we are using default django login page thats why we didnt create its view
@@ -24,8 +27,11 @@ def register(request):
         if form.is_valid():
             password=form.cleaned_data['password1']
             email=form.cleaned_data['email']
-            form.save()
-            print(email,password)
+            myform=form.save()
+            phone=request.POST['phone']
+            # signals.profilesave.send(sender=None,instance=myform,phone=phone,created=True)
+            signals.profilesave.send(sender=None,form=myform,phone=phone,created=True)
+            # print(email,password)
             user=authenticate(request,username=email,password=password)
             print(user)
             if user is not None:
