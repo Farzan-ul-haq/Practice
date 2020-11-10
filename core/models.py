@@ -20,7 +20,7 @@ class User(AbstractBaseUser,PermissionsMixin):
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     phone=models.CharField(max_length=15)
-    image=models.ImageField(upload_to='profile-images')
+    image=models.ImageField(upload_to='profile-images',default='profile-images/default.png')
 
     def __str__(self):
         return self.user.name
