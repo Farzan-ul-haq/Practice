@@ -10,8 +10,17 @@ from . import signals
 # Create your views here.
 
 def index(request):
+    print(request.user.is_authenticated)
+    if request.user.is_authenticated:
+        profile=Profile.objects.get(user=request.user)
+    
+        print(profile)
+        post=Post.objects.get(author=profile)
     #signals.notification.send(sender=None,request=request,user=request.user.name)
-    return render(request,'index.html',{'user':request.user})
+        return render(request,'index.html',{'profile':profile,
+                                        'post':post})
+    else:
+        return redirect('/login/')
 
 #we are using default django login page thats why we didnt create its view
 #but logout function is required to create

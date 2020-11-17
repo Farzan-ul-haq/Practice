@@ -48,7 +48,7 @@ class Post(models.Model):
     timestamp=models.DateTimeField(auto_now_add=True)
     cover_image=models.ImageField(upload_to='post-images',null=True,blank=True)
     likes=models.ManyToManyField(Profile)
-    obj=PostManager()
+    objects=PostManager()
 
     def __str__(self):
         return self.title + ' by '+ self.author.user.name

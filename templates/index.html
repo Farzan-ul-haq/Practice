@@ -1,4 +1,5 @@
 <!doctype html>
+{% load extra_tag %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -11,7 +12,13 @@
     <title>Blog</title>
   </head>
   <body>
-    <h1>Index:{{user.name}}</h1>
+    <h1>Index:{{profile.user.name|slugify}}</h1>
+    <h1>{{profile.user.email}}</h1>
+    <h1>{{profile.phone}}</h1>
+    <h1>{{profile.phone|joint:profile.user.email}}</h1>
+
+    {{profile}}
+    <!-- <h1>{{profile.image}}</h1> -->
 
     <!-- Optional JavaScript; choose one of the two! -->
 
