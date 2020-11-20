@@ -8,8 +8,8 @@ def slugify(value):
     value=value.split()
     return "-".join(value)
 
-def joint(value1,value2,value3):
-    return value2+value1+value3
+def joint(value1,value2):
+    return value2+value1
 # @register.filter
 # def like(value):
 #     post=Post.objects.first()

@@ -7,28 +7,50 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from . import signals
-# Create your views here.
+# Create your views here.   
 
 def index(request):
-    print(request.user.is_authenticated)
-    if request.user.is_authenticated:
+    try:
+        request.session.set_expiry(5)
+        print(request.session.set_expiry(5))
+        for i,j in request.session.items():
+            print(i)
+            print(j)
+        print(request.session['_auth_user_id'])
         profile=Profile.objects.get(user=request.user)
-    
-        print(profile)
         post=Post.objects.get(author=profile)
-    #signals.notification.send(sender=None,request=request,user=request.user.name)
+        #signals.notification.send(sender=None,request=request,user=request.user.name)
         return render(request,'index.html',{'profile':profile,
-                                        'post':post})
-    else:
+                                        'post':post,'expiry':request.session['_session_expiry']*1000})
+                                    
+    except Exception as e:
+        print(f'Error+++\t{e}')
         return redirect('/login/')
+    # else:
+    #     return redirect('/login/')
+    # print(request.user.is_authenticated)
+    # if request.user.is_authenticated:
+    #     profile=Profile.objects.get(user=request.user)
+    
+    #     print(profile)
+    #     post=Post.objects.get(author=profile)
+    # #signals.notification.send(sender=None,request=request,user=request.user.name)
+    #     return render(request,'index.html',{'profile':profile,
+    #                                     'post':post})
+    # else:
+    #     return redirect('/login/')
 
 #we are using default django login page thats why we didnt create its view
 #but logout function is required to create
-def logout(request):
+def handlelogout(request):
+    logout(request)
     return redirect('/login/')
 
 @transaction.atomic
 def register(request):
+    print('===========')
+    for i,j in request.session.items():
+        print(i,j)
     form=UserSignUpForm()
     if request.method == 'POST':
         print("================")
