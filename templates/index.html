@@ -11,7 +11,36 @@
 
     <title>Blog</title>
   </head>
-  <body> 
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown link
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% for i in categories %}
+              <a class="dropdown-item" href="#">{{i.title}}</a>
+              {% endfor %}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <p id='expiry' hidden>{{expiry}}</p>
     <h1>Index:{{profile.user.name|slugify}}</h1>
     <h1>{{profile.user.email}}</h1>
@@ -19,6 +48,7 @@
     <h1>{{profile.phone|joint:profile.user.email}}</h1>
 
     {{expiry}}
+    {{owner}}
     <!-- <h1>{{profile.image}}</h1> -->
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -34,12 +64,12 @@
     -->
   </body>
   <script>
-    $(document).ready(function(){
+    /*$(document).ready(function(){
       setTimeout(function(){
         console.log(document.getElementById('expiry').innerText)
         alert('Session Has Been Expired');
         window.location='/login/'
       },document.getElementById('expiry').innerText);
-    })
+    })*/
   </script>
 </html>
