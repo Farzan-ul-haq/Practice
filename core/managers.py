@@ -13,7 +13,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self,email,password,**kwargs):
         'Create a new super user'
-        user=self.create_user(email,password)
+        user=self.create_user(email=email,password=password,**kwargs)
         user.is_staff=True
         user.is_superuser=True
         user.save(using=self._db)
@@ -24,12 +24,12 @@ class UserManager(BaseUserManager):
 class PostManager(models.Manager):
     def create_post(self,author,title,content,category,cover_image):
         print(self)
-        post=self(author=author,
+        post=self.create(author=author,
                 title=title,
                 content=content,
                 category=category,
                 cover_image=cover_image
-                ).save()
+                )
         return post
     def get_post(self,profile):
         print(profile)

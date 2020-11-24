@@ -15,7 +15,6 @@ def index(request):
     profile=Profile.objects.get(user=request.user)
     post=Post.objects.get_post(profile)
     print(post)
-    print(post[0].likes.count())
     #signals.notification.send(sender=None,request=request,user=request.user.name)
     return render(request,'index.html',{'profile':profile,'post':post})
                                     

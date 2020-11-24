@@ -22,8 +22,9 @@ class TestViews(SimpleTest,TestCase):
         self.client=Client()
         self.email='testuser1@gmail.com'
         self.password='12345'
-        self.user=User.objects.create_superuser(email=self.email,password=self.password)
+        self.user=User.objects.create_superuser(email=self.email,password=self.password,name='FKaeName')
         self.phone='00000000000'
+        
         
 
         # prof=Profile.objects.create(user=self.user,phone=phone)
@@ -46,6 +47,7 @@ class TestViews(SimpleTest,TestCase):
         session=self.client.session
         session['_auth_user_id']=self.user.id
         session.save()
+
         response=self.client.get(reverse('index'))
         print(response)
         self.assertEquals(response.status_code,200)
