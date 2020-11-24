@@ -10,17 +10,19 @@ from . import signals
 # Create your views here.   
 
 def index(request):
-    try:
-        print(request.session['_auth_user_id'],request.user)
-        profile=Profile.objects.get(user=request.user)
-        # post=Post.objects.get(author=profile)
-        #signals.notification.send(sender=None,request=request,user=request.user.name)
-        return render(request,'index.html',{'profile':profile})
+    # try:
+    print(request.session['_auth_user_id'],request.user)
+    profile=Profile.objects.get(user=request.user)
+    post=Post.objects.get_post(profile)
+    print(post)
+    print(post[0].likes.count())
+    #signals.notification.send(sender=None,request=request,user=request.user.name)
+    return render(request,'index.html',{'profile':profile,'post':post})
                                     
-    except Exception as e:
-        print(f'Error\t{e}')
-        print('Not Working')
-        return redirect('/login/')
+    # except Exception as e:
+    #     print(f'Error\t{e}')
+    #     print('Not Working')
+    #     return redirect('/login/')
     # else:
     #     return redirect('/login/')
     # print(request.user.is_authenticated)
@@ -44,20 +46,20 @@ def handlelogout(request):
 
 @transaction.atomic
 def register(request):
-    print('===========')
-    for i,j in request.session.items():
-        print(i,j)
     form=UserSignUpForm()
     if request.method == 'POST':
         print("================")
         form=UserSignUpForm(request.POST)
+        print(form.errors)
         if form.is_valid():
             password=form.cleaned_data['password1']
             email=form.cleaned_data['email']
             myform=form.save()
+            print('form Saved')
             phone=request.POST['phone']
             # signals.profilesave.send(sender=None,instance=myform,phone=phone,created=True)
             signals.profilesave.send(sender=None,form=myform,phone=phone,created=True)
+            print('profile saved')
             # print(email,password)
             user=authenticate(request,username=email,password=password)
             print(user)

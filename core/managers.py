@@ -18,16 +18,30 @@ class UserManager(BaseUserManager):
         user.is_superuser=True
         user.save(using=self._db)
         return user
+    
 
 
 class PostManager(models.Manager):
-    def create_post(self,title,content,category,cover_image):
+    def create_post(self,author,title,content,category,cover_image):
         print(self)
-
-        post=self(author=Profile.objects.first(),
+        post=self(author=author,
                 title=title,
                 content=content,
                 category=category,
                 cover_image=cover_image
                 ).save()
         return post
+    def get_post(self,profile):
+        print(profile)
+        return self.filter(author=profile)
+
+    
+    
+class ProfileManager(models.Manager):
+    def get_profile(self,user):
+        return self.filter(user=user)
+
+    
+
+
+

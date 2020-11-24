@@ -46,7 +46,10 @@ class TestViews(SimpleTest,TestCase):
         session=self.client.session
         session['_auth_user_id']=self.user.id
         session.save()
-
+        response=self.client.get(reverse('index'))
+        print(response)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'index.html')
 
         # print(session)
         # # request.session={'hi':0}
@@ -54,7 +57,11 @@ class TestViews(SimpleTest,TestCase):
         # for i,j in session.items():
         #     print(f'{i}\t{j}')
         # login=self.client.login(username='testuser@gmail.com',password='12345')
-        response=self.client.get(reverse('index'))
+
+    def test_register_GET(self):
+        print("REGISTER VIEWS")
+        data={'name':'Fake Name','email':'Fake@email.com','password1':'fakepassword','password2':'fakepassword','phone':'0303030303'}
+        response=self.client.post(reverse('register'),data)
         print(response)
-        #self.assertEquals(response.status_code,200)
-        #self.assertTemplateUsed(response,'login.html')
+        
+        # self.assertEquals()
