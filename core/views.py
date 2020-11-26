@@ -10,18 +10,17 @@ from . import signals
 # Create your views here.   
 
 def index(request):
-    # try:
-    print(request.session['_auth_user_id'],request.user)
-    profile=Profile.objects.get(user=request.user)
-    post=Post.objects.get_post(profile)
-    print(post)
-    #signals.notification.send(sender=None,request=request,user=request.user.name)
-    return render(request,'index.html',{'profile':profile,'post':post})
-                                    
-    # except Exception as e:
-    #     print(f'Error\t{e}')
-    #     print('Not Working')
-    #     return redirect('/login/')
+    try:
+        print(request.session['_auth_user_id'],request.user)
+        profile=Profile.objects.get(user=request.user)
+        post=Post.objects.get_post(profile)
+        print(post)
+        #signals.notification.send(sender=None,request=request,user=request.user.name)
+        return render(request,'index.html',{'profile':profile,'post':post})                                 
+    except Exception as e:
+        print(f'Error\t{e}')
+        print('Not Working')
+        return redirect('/login/')
     # else:
     #     return redirect('/login/')
     # print(request.user.is_authenticated)
