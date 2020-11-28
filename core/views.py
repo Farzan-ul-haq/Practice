@@ -15,8 +15,7 @@ def index(request):
         post=Post.objects.get_post(profile)
         print(post)
         #signals.notification.send(sender=None,request=request,user=request.user.name)
-        return render(request,'index.html',{'profile':profile,'post':post})
-                                    
+        return render(request,'index.html',{'profile':profile,'post':post})                                 
     except Exception as e:
         print(f'Error\t{e}')
         print('Not Working')
