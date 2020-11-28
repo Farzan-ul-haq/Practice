@@ -1,7 +1,13 @@
 from django.forms import ModelForm
+from django.forms import ModelForm
 from django import forms
-from .models import *
+from .models import User,Profile
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
+from django.utils.safestring import mark_safe
+from string import Template
+
+
+#updating Image field
 
 
 class UserLoginForm(AuthenticationForm):
@@ -14,12 +20,12 @@ class UserLoginForm(AuthenticationForm):
         attrs={'class':'form-control','placeholder':'','id':'id_password_edited'}
     ))
 
-    def save(self):
-        user=authenticate(username=self.email,password=self.password)
-        if user is not None:
-            return user
-        else:
-            return 'No User found'
+    # def save(self):
+    #     user=authenticate(username=self.email,password=self.password)
+    #     if user is not None:
+    #         return user
+    #     else:
+    #         return 'No User found'
 
 # class UserLoginform(ModelForm):
 #     class Meta:
@@ -53,3 +59,8 @@ class UserSignUpForm(UserCreationForm):
     #     password2=forms.cleaned_data['password2']
     #     print(name,email,password1,password2)
     #     self.save()
+
+class ProfileUpdateForm(ModelForm):
+    class Meta:
+        model=Profile
+        fields=['phone','image']

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
 from .managers import *
+from django.utils.text import slugify
 
 class User(AbstractBaseUser,PermissionsMixin):
     'Custom user model that support using emails instead of username'
@@ -39,6 +40,7 @@ class Post(models.Model):
                             on_delete=models.SET_NULL,
                             null=True,
                             related_name='profile')
+    slug=models.SlugField(max_length=255,unique=True,null=True)
     title=models.CharField(max_length=100)
     content=models.TextField()
     category=models.ForeignKey(Category,
@@ -53,6 +55,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title + ' by '+ self.author.user.name
+
+    def save(self,*args,**kwargs):
+        self.slug=slugify(self.title)
+        super(Post,self).save(*args,**kwargs)
 
 
 class Comment(models.Model):

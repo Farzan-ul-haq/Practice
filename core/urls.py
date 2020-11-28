@@ -11,4 +11,9 @@ urlpatterns=[
         name='login'),
     path('logout/',views.handlelogout,name='logout'),
     path('register/',views.register,name='register'),
+    path('profile/',views.profile,name='profile'),
+    
+
+    #Testing Purpose ONly
+    # path('create-post/',views.create,name='create'),
 ]
