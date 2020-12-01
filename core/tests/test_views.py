@@ -40,7 +40,7 @@ class TestViews(SimpleTest,TestCase):
     #     session.save()
 
     def test_index_GET(self):
-        self.create_se200ssion()
+        self.create_session()
         signals.profilesave.send(sender=None,form=self.user,phone=self.phone,created=True)
         self.client.login(username=self.email,password=self.password)
         session=self.client.session
