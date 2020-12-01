@@ -23,7 +23,7 @@ class TestViews(SimpleTest,TestCase):
         self.email='testuser1@gmail.com'
         self.password='12345'
         self.user=User.objects.create_superuser(email=self.email,password=self.password,name='FKaeName')
-        # self.phone='00000000000'
+        self.phone='00000000000'
         
         
 
