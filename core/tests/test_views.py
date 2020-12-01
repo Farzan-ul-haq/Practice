@@ -41,7 +41,7 @@ class TestViews(SimpleTest,TestCase):
 
     def test_index_GET(self):
         print('======',self.user)
-        self.create_session()
+        self.create_se200ssion()
         signals.profilesave.send(sender=None,form=self.user,phone=self.phone,created=True)
         self.client.login(username=self.email,password=self.password)
         session=self.client.session
@@ -50,7 +50,7 @@ class TestViews(SimpleTest,TestCase):
 
         response=self.client.get(reverse('index'))
         print(response)
-        self.assertEquals(response.status_code,302)
+        self.assertEquals(response.status_code,200)
         self.assertTemplateUsed(response,'index.html')
 
         # print(session)
