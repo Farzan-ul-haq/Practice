@@ -48,7 +48,6 @@ class TestViews(SimpleTest,TestCase):
         session.save()
 
         response=self.client.get(reverse('index'))
-        print(response)
         self.assertEquals(response.status_code,200)
         self.assertTemplateUsed(response,'index.html')
 
