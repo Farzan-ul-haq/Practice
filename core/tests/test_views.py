@@ -40,7 +40,6 @@ class TestViews(SimpleTest,TestCase):
     #     session.save()
 
     def test_index_GET(self):
-        print('======',self.user)
         self.create_se200ssion()
         signals.profilesave.send(sender=None,form=self.user,phone=self.phone,created=True)
         self.client.login(username=self.email,password=self.password)
