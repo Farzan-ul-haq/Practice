@@ -1,0 +1,16 @@
+language: python
+
+python:
+    - '3.9'
+
+env:
+    - SECRET_KEY='TEST'
+
+services:
+    - sqlite3
+
+install:
+    - pipenv install
+
+script:
+    - python manage.py test
