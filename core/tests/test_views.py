@@ -50,7 +50,7 @@ class TestViews(SimpleTest,TestCase):
 
         response=self.client.get(reverse('index'))
         print(response)
-        self.assertEquals(response.status_code,200)
+        self.assertEquals(response.status_code,302)
         self.assertTemplateUsed(response,'index.html')
 
         # print(session)
