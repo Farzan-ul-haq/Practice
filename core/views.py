@@ -43,10 +43,10 @@ def handlelogout(request):
 
 @transaction.atomic
 def register(request):
-    form=UserSignUpForm()
+    form=forms.UserSignUpForm()
     if request.method == 'POST':
         print("================")
-        form=UserSignUpForm(request.POST)
+        form=forms.UserSignUpForm(request.POST)
         print(form.errors)
         if form.is_valid():
             password=form.cleaned_data['password1']
