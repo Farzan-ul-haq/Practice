@@ -2,6 +2,8 @@
 before-script: "pip install -r requirements.txt"
 language: python
 python: 
+ci/config
   - "3.8.0"
+
 script: 
   - "python manage.py test"
